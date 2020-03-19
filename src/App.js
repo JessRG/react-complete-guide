@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
+// Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
+// App class component is an example of a stateful component ("container" component)
 class App extends Component {
   /** Understanding and using state
    *
@@ -20,26 +22,51 @@ class App extends Component {
   };
 
   // Manipulating the State
-  switchNameHandler = () => {
+  switchNameHandler = newName => {
     // console.log('Was clicked!');
     //this.state.persons[0].name = 'Maximilian';
     this.setState({
       persons: [
-        { name: 'Maximilian', age: 28 },
+        { name: newName, age: 28 },
         { name: 'Manu', age: 29 },
         { name: 'Stephanie', age: 27 }
       ]
     });
   };
 
+  nameChangedHandler = event => {
+    this.setState({
+      persons: [
+        { name: 'Max', age: 28 },
+        { name: event.target.value, age: 29 },
+        { name: 'Stephanie', age: 26 }
+      ]
+    });
+  };
+
   render() {
+    // Working with Inline Styles
+    // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you add it to
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
+
     return (
       // JSX
       <div className='App'>
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        {/* Understanding and using state */}
-        <button onClick={this.switchNameHandler}>Switch Name</button>
+        {/* Understanding and using state 
+            -> Alternative code/syntax for button onClick property set to pass a method reference to Person component as an arrow function with an argument (can be less efficient than bind) */}
+        <button
+          style={style} // Inline styling
+          onClick={() => this.switchNameHandler('Maximilian!!')}>
+          Switch Name
+        </button>
         {/* Working with Properties
             -> props allow you to pass data from a parent (wrapping) component to a child (embedded) component (passes data down the component tree)
             -> state is used to change the component state from within
@@ -50,11 +77,13 @@ class App extends Component {
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
         />
-        {/* Understanding the "children" Prop */}
+        {/* Pass method reference from App component to Person function component using click property using bind */}
         <Person
           name={this.state.persons[1].name}
           age={this.state.persons[1].age}
-        >
+          click={this.switchNameHandler.bind(this, 'Max!')}
+          changed={this.nameChangedHandler}>
+          {/* Understanding the "children" Prop */}
           My Hobbies: Racing
         </Person>
         <Person
