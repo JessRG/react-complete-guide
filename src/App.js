@@ -18,7 +18,8 @@ class App extends Component {
       { name: 'Manu', age: 29 },
       { name: 'Stephanie', age: 26 }
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
+    showPersons: false
   };
 
   // Manipulating the State
@@ -44,6 +45,11 @@ class App extends Component {
     });
   };
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
+  };
+
   render() {
     // Working with Inline Styles
     // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you add it to
@@ -64,39 +70,39 @@ class App extends Component {
             -> Alternative code/syntax for button onClick property set to pass a method reference to Person component as an arrow function with an argument (can be less efficient than bind) */}
         <button
           style={style} // Inline styling
-          onClick={() => this.switchNameHandler('Maximilian!!')}>
-          Switch Name
+          onClick={this.togglePersonsHandler}>
+          Toggle Persons
         </button>
-        {/* Working with Properties
-            -> props allow you to pass data from a parent (wrapping) component to a child (embedded) component (passes data down the component tree)
-            -> state is used to change the component state from within
-            -> state implemented with "this" keyword
-            -> changes in props  and/or state  trigger React to re-render your components and potentially update the DOM in the browser
-        */}
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-        {/* Pass method reference from App component to Person function component using click property using bind */}
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Max!')}
-          changed={this.nameChangedHandler}>
-          {/* Understanding the "children" Prop */}
-          My Hobbies: Racing
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-        />
+        {/* Rendering Content Conditionally */}
+        {this.state.showPersons ? (
+          <div>
+            {/* Working with Properties
+          -> props allow you to pass data from a parent (wrapping) component to a child (embedded) component (passes data down the component tree)
+          -> state is used to change the component state from within
+          -> state implemented with "this" keyword
+          -> changes in props  and/or state  trigger React to re-render your components and potentially update the DOM in the browser
+      */}
+            <Person
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age}
+            />
+            {/* Pass method reference from App component to Person function component using click property using bind */}
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler.bind(this, 'Max!')}
+              changed={this.nameChangedHandler}>
+              {/* Understanding the "children" Prop */}
+              My Hobbies: Racing
+            </Person>
+            <Person
+              name={this.state.persons[2].name}
+              age={this.state.persons[2].age}
+            />
+          </div>
+        ) : null}
       </div>
     );
-    // return React.createElement(
-    //   'div',
-    //   null,
-    //   React.createElement('h1', {className: 'App'}, 'Does this work now?')
-    // );
   }
 }
 
