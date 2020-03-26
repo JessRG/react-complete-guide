@@ -14,35 +14,45 @@ class App extends Component {
    * react 16.8 -> React hooks feature was released which can also manage state and functional components */
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephanie', age: 26 }
+      { id: 'asfa1', name: 'Max', age: 28 },
+      { id: 'vasdf1', name: 'Manu', age: 29 },
+      { id: 'asdf11', name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other value',
     showPersons: false
   };
 
-  // Manipulating the State
-  switchNameHandler = newName => {
-    // console.log('Was clicked!');
-    //this.state.persons[0].name = 'Maximilian';
-    this.setState({
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Manu', age: 29 },
-        { name: 'Stephanie', age: 27 }
-      ]
+  nameChangedHandler = (event, id) => {
+    // store the specific index of the person who's id matches with the id parameter
+    const personIndex = this.state.persons.findIndex((p) => {
+      return p.id === id;
     });
+
+    // store copy of the specific person
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    // const person = Object.assign({}, this.state.persons[personIndex])
+
+    // modify specific person's name
+    person.name = event.target.value;
+
+    // store copy of persons
+    const persons = [...this.state.persons];
+    // update the specific person within the persons copy
+    persons[personIndex] = person;
+
+    // set the state persons array with the updated persons copy
+    this.setState({ persons: persons });
   };
 
-  nameChangedHandler = event => {
-    this.setState({
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: 'Stephanie', age: 26 }
-      ]
-    });
+  deletePersonHandler = (personIndex) => {
+    // Always update state in an immutable fashion
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
   };
 
   togglePersonsHandler = () => {
@@ -52,55 +62,52 @@ class App extends Component {
 
   render() {
     // Working with Inline Styles
-    // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you add it to
+    // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you want to style
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer'
     };
 
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        // Outputting List of Persons using JavaScript
+        <div>
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                // adding this change handler method to allow our list of persons to be more flexible
+                changed={(event) => this.nameChangedHandler(event, person.id)}
+              />
+            );
+          })}
+        </div>
+      );
+      // Setting style dynamically when showPersons is true
+      style.backgroundColor = 'red';
+    }
+
     return (
       // JSX
       <div className='App'>
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        {/* Understanding and using state 
-            -> Alternative code/syntax for button onClick property set to pass a method reference to Person component as an arrow function with an argument (can be less efficient than bind) */}
         <button
           style={style} // Inline styling
           onClick={this.togglePersonsHandler}>
           Toggle Persons
         </button>
         {/* Rendering Content Conditionally */}
-        {this.state.showPersons ? (
-          <div>
-            {/* Working with Properties
-          -> props allow you to pass data from a parent (wrapping) component to a child (embedded) component (passes data down the component tree)
-          -> state is used to change the component state from within
-          -> state implemented with "this" keyword
-          -> changes in props  and/or state  trigger React to re-render your components and potentially update the DOM in the browser
-      */}
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-            />
-            {/* Pass method reference from App component to Person function component using click property using bind */}
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              click={this.switchNameHandler.bind(this, 'Max!')}
-              changed={this.nameChangedHandler}>
-              {/* Understanding the "children" Prop */}
-              My Hobbies: Racing
-            </Person>
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age}
-            />
-          </div>
-        ) : null}
+        {persons}
       </div>
     );
   }

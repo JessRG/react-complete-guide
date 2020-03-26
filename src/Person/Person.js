@@ -8,10 +8,9 @@ import './Person.css';
 // Having state in all your components and manipulating it from anywhere within your app will make the app quickly unpredictable and hard to manage especially as it grows
 // Stateless component -> a component that does not manage or manipulate state internally
 // This person component is a stateless component ("presentational" components) because it has no internal state management
-const person = props => {
+const person = (props) => {
   return (
     // Outputting Dynamic Content
-    // <p>I'm a Person and I am {Math.floor(Math.random() * 30)} years old!</p>
     <div className='Person'>
       {/* Working with Properties */}
       <p onClick={props.click}>
@@ -19,7 +18,9 @@ const person = props => {
       </p>
       {/* Understanding the "children" Prop */}
       <p>{props.children}</p>
-      {/* Added two way binding */}
+      {/* Added two way binding (onChange property)
+       Now we can set this up in a dynamic way by setting up the
+       persons object in app with a change handler method */}
       <input type='text' onChange={props.changed} value={props.name} />
     </div>
   );
