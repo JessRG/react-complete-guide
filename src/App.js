@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+
+import classes from './App.css';
 import Person from './Person/Person';
 
 // import styled from 'styled-components';
@@ -81,20 +82,22 @@ class App extends Component {
   render() {
     // Working with Inline Styles
     // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you want to style
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
+    // const style = {
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // };
 
     let persons = null;
+    // let btnClass = [classes.Button];
+    let btnClass = '';
 
     if (this.state.showPersons) {
       persons = (
@@ -120,27 +123,28 @@ class App extends Component {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // };
+
+      // btnClass.push(classes.Red);
+      btnClass = classes.Red;
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red'); // classes = ['red']
+      assignedClasses.push(classes.red); // classes = ['red']
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold'); // classes = ['red', 'bold']
+      assignedClasses.push(classes.bold); // classes = ['red', 'bold']
     }
 
     return (
       // JSX
       // <StyleRoot>
-      <div className='App'>
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <StyledButton
-          alt={this.state.showPersons}
-          onClick={this.togglePersonsHandler}>
+        <p className={assignedClasses.join(' ')}>This is really working!</p>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Toggle Persons
-        </StyledButton>
+        </button>
         {/* Rendering Content Conditionally */}
         {persons}
       </div>
