@@ -2,6 +2,24 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
+// import styled from 'styled-components';
+// import Radium, { StyleRoot } from 'radium';
+
+// Styled Components and Dynamic Styles
+// const StyledButton = styled.button`
+//   background-color: ${(props) => (props.alt ? 'red' : 'green')};
+//   color: white;
+//   font: inherit;
+//   border: 1px solid blue;
+//   padding: 8px;
+//   cursor: pointer;
+
+//   &:hover {
+//     background-color: ${(props) => (props.alt ? 'salmon' : 'lightgreen')};
+//     color: black;
+//   }
+// `;
+
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
 // App class component is an example of a stateful component ("container" component)
 class App extends Component {
@@ -69,7 +87,11 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -93,24 +115,40 @@ class App extends Component {
         </div>
       );
       // Setting style dynamically when showPersons is true
-      style.backgroundColor = 'red';
+      // style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // };
+    }
+
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red'); // classes = ['red']
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold'); // classes = ['red', 'bold']
     }
 
     return (
       // JSX
+      // <StyleRoot>
       <div className='App'>
         <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button
-          style={style} // Inline styling
+        <p className={classes.join(' ')}>This is really working!</p>
+        <StyledButton
+          alt={this.state.showPersons}
           onClick={this.togglePersonsHandler}>
           Toggle Persons
-        </button>
+        </StyledButton>
         {/* Rendering Content Conditionally */}
         {persons}
       </div>
+      // </StyleRoot>
     );
   }
 }
+// Installed Radium package which is a component which wraps the App component and adds/injects extra functionality (additional syntax which will parse the styles and understand some extra features we can now implement)
+// export default Radium(App);
 
 export default App;
