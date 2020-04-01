@@ -1,25 +1,7 @@
 import React, { Component } from 'react';
 
 import classes from './App.css';
-import Person from './Person/Person';
-
-// import styled from 'styled-components';
-// import Radium, { StyleRoot } from 'radium';
-
-// Styled Components and Dynamic Styles
-// const StyledButton = styled.button`
-//   background-color: ${(props) => (props.alt ? 'red' : 'green')};
-//   color: white;
-//   font: inherit;
-//   border: 1px solid blue;
-//   padding: 8px;
-//   cursor: pointer;
-
-//   &:hover {
-//     background-color: ${(props) => (props.alt ? 'salmon' : 'lightgreen')};
-//     color: black;
-//   }
-// `;
+import Person from '../components/Persons/Person/Person';
 
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
 // App class component is an example of a stateful component ("container" component)
@@ -52,8 +34,6 @@ class App extends Component {
       ...this.state.persons[personIndex]
     };
 
-    // const person = Object.assign({}, this.state.persons[personIndex])
-
     // modify specific person's name
     person.name = event.target.value;
 
@@ -80,23 +60,7 @@ class App extends Component {
   };
 
   render() {
-    // Working with Inline Styles
-    // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you want to style
-    // const style = {
-    //   backgroundColor: 'green',
-    //   color: 'white',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '8px',
-    //   cursor: 'pointer',
-    //   ':hover': {
-    //     backgroundColor: 'lightgreen',
-    //     color: 'black'
-    //   }
-    // };
-
     let persons = null;
-    // let btnClass = [classes.Button];
     let btnClass = '';
 
     if (this.state.showPersons) {
@@ -118,13 +82,6 @@ class App extends Component {
         </div>
       );
       // Setting style dynamically when showPersons is true
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // };
-
-      // btnClass.push(classes.Red);
       btnClass = classes.Red;
     }
 
@@ -138,7 +95,6 @@ class App extends Component {
 
     return (
       // JSX
-      // <StyleRoot>
       <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
         <p className={assignedClasses.join(' ')}>This is really working!</p>
@@ -148,11 +104,8 @@ class App extends Component {
         {/* Rendering Content Conditionally */}
         {persons}
       </div>
-      // </StyleRoot>
     );
   }
 }
-// Installed Radium package which is a component which wraps the App component and adds/injects extra functionality (additional syntax which will parse the styles and understand some extra features we can now implement)
-// export default Radium(App);
 
 export default App;

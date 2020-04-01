@@ -1,6 +1,4 @@
 import React from 'react';
-// import Radium from 'radium';
-// import styled from 'styled-components';
 
 // Add styling with css stylesheet
 import classes from './Person.css';
@@ -11,30 +9,8 @@ import classes from './Person.css';
 // Stateless component -> a component that does not manage or manipulate state internally
 // This person component is a stateless component ("presentational" components) because it has no internal state management
 const person = (props) => {
-  // style defined for implementation with Radium package
-  // const style = {
-  //   '@media (min-width: 500px)': {
-  //     width: '450px'
-  //   }
-  // };
-
-  // const StyledDiv = styled.div`
-  //     width: 60%;
-  //     margin: 16px auto;
-  //     border: 1px solid #eee;
-  //     box-shadow: 0 2px 3px #ccc;
-  //     padding: 16px;
-  //     text-align: center;
-  //   }
-
-  //   @media (min-width: 500px) {
-  //       width: 450px;
-  //   }
-  //   `;
-
   return (
     // Outputting Dynamic Content
-    // <div className='Person' style={style}>
     <div className={classes.Person}>
       {/* Working with Properties */}
       <p onClick={props.click}>
@@ -50,5 +26,4 @@ const person = (props) => {
   );
 };
 
-// export default Radium(person);
 export default person;
