@@ -2,24 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './App.css';
 import Person from './Person/Person';
-
-// import styled from 'styled-components';
-// import Radium, { StyleRoot } from 'radium';
-
-// Styled Components and Dynamic Styles
-// const StyledButton = styled.button`
-//   background-color: ${(props) => (props.alt ? 'red' : 'green')};
-//   color: white;
-//   font: inherit;
-//   border: 1px solid blue;
-//   padding: 8px;
-//   cursor: pointer;
-
-//   &:hover {
-//     background-color: ${(props) => (props.alt ? 'salmon' : 'lightgreen')};
-//     color: black;
-//   }
-// `;
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
 // App class component is an example of a stateful component ("container" component)
@@ -80,21 +63,6 @@ class App extends Component {
   };
 
   render() {
-    // Working with Inline Styles
-    // this approach of styling does not leverage the full power of css, but is scoped to the specific component/element you want to style
-    // const style = {
-    //   backgroundColor: 'green',
-    //   color: 'white',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '8px',
-    //   cursor: 'pointer',
-    //   ':hover': {
-    //     backgroundColor: 'lightgreen',
-    //     color: 'black'
-    //   }
-    // };
-
     let persons = null;
     // let btnClass = [classes.Button];
     let btnClass = '';
@@ -105,26 +73,20 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
-              <Person
-                click={() => this.deletePersonHandler(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                // adding this change handler method to allow our list of persons to be more flexible
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-              />
+              <ErrorBoundary key={person.id}>
+                <Person
+                  click={() => this.deletePersonHandler(index)}
+                  name={person.name}
+                  age={person.age}
+                  // adding this change handler method to allow our list of persons to be more flexible
+                  changed={(event) => this.nameChangedHandler(event, person.id)}
+                />
+              </ErrorBoundary>
             );
           })}
         </div>
       );
-      // Setting style dynamically when showPersons is true
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // };
 
-      // btnClass.push(classes.Red);
       btnClass = classes.Red;
     }
 
@@ -138,7 +100,6 @@ class App extends Component {
 
     return (
       // JSX
-      // <StyleRoot>
       <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
         <p className={assignedClasses.join(' ')}>This is really working!</p>
@@ -148,7 +109,6 @@ class App extends Component {
         {/* Rendering Content Conditionally */}
         {persons}
       </div>
-      // </StyleRoot>
     );
   }
 }
