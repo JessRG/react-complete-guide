@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 
 // Stateless Functional Component
 const person = (props) => {
@@ -13,4 +14,4 @@ const person = (props) => {
 		</div>
 	);
 };
-export default person;
+export default Radium(person);

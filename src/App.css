@@ -1,7 +1,18 @@
 .App {
 	text-align: center;
 }
-.App-logo {
+
+/* Added a css rule for red */
+.red {
+	color: red;
+}
+
+/* Added a css rule for bold */
+.bold {
+	font-weight: bold;
+}
+
+/*.App-logo {
 	animation: App-logo-spin infinite 20s linear;
 	height: 80px;
 }
@@ -24,4 +35,4 @@
 	to {
 		transform: rotate(360deg);
 	}
-}
+}*/

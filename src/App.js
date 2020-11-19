@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
 import './Person/Person.css';
+import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
@@ -65,11 +66,16 @@ class App extends Component {
 
 	render() {
 		const style = {
-			backgroundColor: 'white',
+			backgroundColor: 'green',
+			color: 'white',
 			font: 'inherit',
 			border: '1px solid blue',
 			padding: '8px',
-			cursor: 'pointer'
+			cursor: 'pointer',
+			':hover': {
+				backgroundColor: 'lightgreen',
+				color: 'black'
+			}
 		};
 
 		let persons = null;
@@ -90,12 +96,26 @@ class App extends Component {
 					})}
 				</div>
 			);
+
+			style.backgroundColor = 'red';
+			style[':hover'] = {
+				backgroundColor: 'salmon',
+				color: 'black'
+			};
+		}
+
+		const classes = [];
+		if (this.state.persons.length <= 2) {
+			classes.push('red'); // classes = ['red']
+		}
+		if (this.state.persons.length <= 1) {
+			classes.push('bold'); // classes = ['red', 'bold']
 		}
 
 		return (
 			<div className='App'>
 				<h1>Hello</h1>
-				<p>This is really working!</p>
+				<p className={classes.join(' ')}>This is really working!</p>
 				<button style={style} onClick={this.togglePersonsHandler}>
 					Toggle Persons
 				</button>
@@ -104,4 +124,4 @@ class App extends Component {
 		);
 	}
 }
-export default App;
+export default Radium(App);
