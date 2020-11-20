@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './Person/Person.css';
 import './App.css';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
@@ -113,17 +112,17 @@ class App extends Component {
 		}
 
 		return (
-			<StyleRoot>
-				<div className='App'>
-					<h1>Hello</h1>
-					<p className={classes.join(' ')}>This is really working!</p>
-					<button style={style} onClick={this.togglePersonsHandler}>
-						Toggle Persons
-					</button>
-					{persons}
-				</div>
-			</StyleRoot>
+			// <StyleRoot>
+			<div className='App'>
+				<h1>Hello</h1>
+				<p className={classes.join(' ')}>This is really working!</p>
+				<button style={style} onClick={this.togglePersonsHandler}>
+					Toggle Persons
+				</button>
+				{persons}
+			</div>
+			// </StyleRoot>
 		);
 	}
 }
-export default Radium(App);
+export default App;
