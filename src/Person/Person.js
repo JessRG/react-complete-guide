@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // import './Person.css';
+// returns a regular div with
 const StyledDiv = styled.div`
 	width: 60%;
 	margin: 16px auto;
@@ -17,11 +18,11 @@ const StyledDiv = styled.div`
 
 // Stateless Functional Component
 const person = (props) => {
-	const style = {
-		'@media (min-width: 500px)': {
-			width: '450px'
-		}
-	};
+	// const style = {
+	// 	'@media (min-width: 500px)': {
+	// 		width: '450px'
+	// 	}
+	// };
 
 	return (
 		// <div className='Person' style={style}>
