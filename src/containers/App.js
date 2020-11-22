@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
 import classes from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
 // App class component is an example of a stateful component ("container" component)
@@ -65,45 +66,24 @@ class App extends Component {
 
 	render() {
 		let persons = null;
-		let btnClass = '';
 
 		if (this.state.showPersons) {
 			persons = (
-				<div>
-					{this.state.persons.map((person, index) => {
-						return (
-							// <ErrorBoundary key={person.id}>
-							<Person
-								click={this.deletePersonHandler.bind(this, index)}
-								name={person.name}
-								age={person.age}
-								key={person.id}
-								changed={(event) => this.nameChangedHandler(event, person.id)}
-							/>
-							// </ErrorBoundary>
-						);
-					})}
-				</div>
+				<Persons
+					persons={this.state.persons}
+					clicked={this.deletePersonHandler}
+					changed={this.nameChangedHandler}
+				/>
 			);
-
-			btnClass = classes.Red;
-		}
-
-		const assignedClasses = [];
-		if (this.state.persons.length <= 2) {
-			assignedClasses.push(classes.red); // assignedClasses = ['red']
-		}
-		if (this.state.persons.length <= 1) {
-			assignedClasses.push(classes.bold); // assignedClasses = ['red', 'bold']
 		}
 
 		return (
 			<div className={classes.App}>
-				<h1>Hello</h1>
-				<p className={assignedClasses.join(' ')}>This is really working!</p>
-				<button className={btnClass} onClick={this.togglePersonsHandler}>
-					Toggle Persons
-				</button>
+				<Cockpit
+					showPersons={this.state.showPersons}
+					persons={this.state.persons}
+					clicked={this.togglePersonsHandler}
+				/>
 				{persons}
 			</div>
 		);
