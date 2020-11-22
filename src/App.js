@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
 // App class component is an example of a stateful component ("container" component)
@@ -71,6 +72,7 @@ class App extends Component {
 				<div>
 					{this.state.persons.map((person, index) => {
 						return (
+							// <ErrorBoundary key={person.id}>
 							<Person
 								click={this.deletePersonHandler.bind(this, index)}
 								name={person.name}
@@ -78,6 +80,7 @@ class App extends Component {
 								key={person.id}
 								changed={(event) => this.nameChangedHandler(event, person.id)}
 							/>
+							// </ErrorBoundary>
 						);
 					})}
 				</div>
@@ -95,7 +98,6 @@ class App extends Component {
 		}
 
 		return (
-			// <StyleRoot>
 			<div className={classes.App}>
 				<h1>Hello</h1>
 				<p className={assignedClasses.join(' ')}>This is really working!</p>
@@ -104,7 +106,6 @@ class App extends Component {
 				</button>
 				{persons}
 			</div>
-			// </StyleRoot>
 		);
 	}
 }
