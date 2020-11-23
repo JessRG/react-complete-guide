@@ -8,6 +8,11 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // Stateful component -> a component that manages state regardless if you use class-based approach (state property) or react hooks (useState()) to manipulate state
 // App class component is an example of a stateful component ("container" component)
 class App extends Component {
+	constructor(props) {
+		super(props);
+		console.log('[App.js] constructor');
+	}
+
 	/** Understanding and using state
 	 *
 	 * State managed from inside a component state property is only available like this in classes/components that extend Component
@@ -24,6 +29,20 @@ class App extends Component {
 		otherState: 'some other value',
 		showPersons: false
 	};
+
+	static getDerivedStateFromProps(props, state) {
+		console.log('[App.js] getDerivedStateFromProps', props);
+		return state;
+	}
+
+	// componentWillMount() {
+	// 	console.log('[App.js] componentWillMount');
+	// }
+
+	componentDidMount() {
+		console.log('[App.js] componentDidMount');
+	}
+
 	switchNameHandler = (newName) => {
 		this.setState({
 			persons: [
@@ -65,6 +84,7 @@ class App extends Component {
 	};
 
 	render() {
+		console.log('[App.js] render');
 		let persons = null;
 
 		if (this.state.showPersons) {
