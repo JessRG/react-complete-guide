@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
-
 import Person from './Person/Person';
 
 class Persons extends Component {
@@ -26,6 +24,10 @@ class Persons extends Component {
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		console.log('[Persons.js] componentDidUpdate');
 		console.log(snapshot);
+	}
+
+	componentWillUnmount() {
+		console.log('[Persons.js] componentWillUnmount');
 	}
 
 	render() {
