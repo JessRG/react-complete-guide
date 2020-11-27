@@ -19,10 +19,11 @@ class Person extends Component {
 		return (
 			<Aux>
 				<p onClick={this.props.click}>
-					I am {this.props.name} and I am {this.props.age} years old
+					I am {this.props.name} and I am {this.props.age} years old!
 				</p>
-				<p>{this.props.children}</p>
+				<p key='i2'>{this.props.children}</p>
 				<input
+					key='i3'
 					type='text'
 					onChange={this.props.changed}
 					value={this.props.name}
@@ -31,4 +32,5 @@ class Person extends Component {
 		);
 	}
 }
+
 export default withClass(Person, classes.Person);
