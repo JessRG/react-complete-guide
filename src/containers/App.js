@@ -4,7 +4,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
 import Aux from '../hoc/Aux';
-import AuthContext from '../AuthContext/AuthContext';
+import AuthContext from '../context/auth-context';
 
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
@@ -141,7 +141,6 @@ class App extends Component {
 							showPersons={this.state.showPersons}
 							personsLength={this.state.persons.length}
 							clicked={this.togglePersonsHandler}
-							login={this.loginHandler}
 						/>
 					) : null}
 					{persons}
